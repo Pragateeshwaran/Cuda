@@ -5,7 +5,7 @@ __global__ void vectorAdd(const float *A, const float *B, float *C, int N) {
     int i = blockIdx.x * blockDim.x + threadIdx.x;
     if (i < N)
         C[i] = A[i] + B[i];
-    printf("%d ", C[i]);    
+    printf("%f ", C[i]);    
 }
 
 int main() {
@@ -41,7 +41,7 @@ int main() {
     cudaMemcpy(d_B, h_B, size, cudaMemcpyHostToDevice);
 
     // Define block and grid sizes
-    int threadsPerBlock = 256;
+    int threadsPerBlock = 1024;
     int blocksPerGrid = (N + threadsPerBlock - 1) / threadsPerBlock;
 
     // Launch the kernel
